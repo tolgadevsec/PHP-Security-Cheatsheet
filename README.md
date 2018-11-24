@@ -26,7 +26,7 @@ User-provided URLs should not beginn with the JavaScript pseudo protocol (javasc
 ```php
 if(substr($url, 0, strlen("http:")) === "http:" ||
    substr($url, 0, strlen("https:")) === "https:"){
-   // ...
+   // Accept and process URL
 }
 ```
 
