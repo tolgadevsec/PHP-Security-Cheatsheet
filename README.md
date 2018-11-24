@@ -20,7 +20,7 @@ string $domain = "" [, bool $secure = false [, bool $httponly = false [, string 
 [htmlspecialchars](https://secure.php.net/manual/en/function.htmlspecialchars.php) escapes special HTML characters such as <,>,&," and ' which can be used to build XSS payloads. 
 The ENT_QUOTES flag makes sure that both single and double quotes will be escaped
 ```php
-htmlspecialchars("<script>alert('xss');</script>", ENT_QUOTES);
+$escapedString = htmlspecialchars("<script>alert('xss');</script>", ENT_QUOTES);
 ```
 
 # HTTP Security Headers
