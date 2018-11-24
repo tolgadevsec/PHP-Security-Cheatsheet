@@ -4,6 +4,7 @@ This is a summary of PHP-based countermeasures against certain vulnerabilities
 ## Table of Content
 - [Cross-Site Request Forgery](#cross-site-request-forgery)
 - [Cross-Site Scripting](#cross-site-scripting)
+- [HTTP Header Injection](#http-header-injection)
 - [HTTP Security Headers](#http-security-headers)
 
 # Cross-Site Request Forgery
@@ -29,9 +30,11 @@ if(substr($url, 0, strlen("http:")) === "http:" ||
    // Accept and process URL
 }
 ```
+# HTTP Header Injection
+The [header](https://secure.php.net/manual/en/function.header.php) function prevents the injection of multiple headers since PHP 5.1.2 (see [Changelog](https://secure.php.net/manual/en/function.header.php) at the bottom)
 
 # HTTP Security Headers
-The [header](https://secure.php.net/manual/de/function.header.php) function can be used to specify security headers. The following table lists the supported
+The [header](https://secure.php.net/manual/en/function.header.php) function can be used to specify security headers. The following table lists the supported
 security headers:
 
 | Security Header  | Description |
