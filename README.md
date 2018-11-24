@@ -25,3 +25,8 @@ security headers:
 | [Expect-CT](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect-CT) | Determines if your website is ready for Certificate Transparency (CT) and enforces it if it is  |
 | [Feature-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy) | Allows or disallows the use of certain Web APIs such as the Geolocation API  |
 | [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)  | Enables and configures XSS filtering available in some Browsers  |
+
+```php
+// Enable XSS filtering and block any detected XSS attacks
+header("X-XSS-Protection: 1; mode=block");
+```
