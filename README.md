@@ -17,13 +17,12 @@ string $domain = "" [, bool $secure = false [, bool $httponly = false [, string 
 # Cross-Site Scripting
 ### Context-Aware Escaping
 ###### Context: Inside a HTML element
-[htmlspecialchars](https://secure.php.net/manual/en/function.htmlspecialchars.php) escapes special HTML characters such as <,>,&," and ' which can be used to build XSS payloads. 
-The ENT_QUOTES flag makes sure that both single and double quotes will be escaped
+[htmlspecialchars](https://secure.php.net/manual/en/function.htmlspecialchars.php) escapes special HTML characters such as <,>,&," and ' which can be used to build XSS payloads. The ENT_QUOTES flag makes sure that both single and double quotes will be escaped
 ```php
 $escapedString = htmlspecialchars("<script>alert('xss');</script>", ENT_QUOTES);
 ```
 ###### Context: URL in HREF attribute of an anchor element 
-User-provided URLs should not beginn with the JavaScript pseudo protocol (javascript:). This can be prevented by accepting only URLs that beginn with the HTTP (http:) or HTTPS (https:) protocol:
+User-provided URLs should not beginn with the JavaScript pseudo protocol (javascript:). This can be prevented by accepting only URLs that beginn with the HTTP (http:) or HTTPS (https:) protocol
 ```php
 if(substr($url, 0, strlen("http:")) === "http:" ||
    substr($url, 0, strlen("https:")) === "https:"){
