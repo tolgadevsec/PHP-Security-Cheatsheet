@@ -5,11 +5,12 @@ This is a summary of PHP-based countermeasures against certain vulnerabilities
 - [Cross-Site Request Forgery](#cross-site-request-forgery)
 - [Cross-Site Scripting](#cross-site-scripting)
 - [HTTP Header Injection](#http-header-injection)
+- [HTTP Header Parameter Injection](#http-header-parameter-injection)
 - [HTTP Security Headers](#http-security-headers)
 
 # Cross-Site Request Forgery
 ### SameSite Cookie Attribute
-The SameSite cookie attribute is supported in [PHP >= 7.3](https://wiki.php.net/rfc/same-site-cookie)
+The SameSite cookie attribute is supported in [PHP >= 7.3](https://wiki.php.net/rfc/same-site-cookie).
 ```php
 bool setcookie ( string $name [, string $value = "" [, int $expire = 0 [, string $path = "" [, 
 string $domain = "" [, bool $secure = false [, bool $httponly = false [, string $samesite = "" 
@@ -18,7 +19,7 @@ string $domain = "" [, bool $secure = false [, bool $httponly = false [, string 
 # Cross-Site Scripting
 ### Context-Aware Escaping
 ###### Context: Inside a HTML element
-[htmlspecialchars](https://secure.php.net/manual/en/function.htmlspecialchars.php) escapes special HTML characters such as <,>,&," and ' which can be used to build XSS payloads. The ENT_QUOTES flag makes sure that both single and double quotes will be escaped
+[htmlspecialchars](https://secure.php.net/manual/en/function.htmlspecialchars.php) escapes special HTML characters such as <,>,&," and ' which can be used to build XSS payloads. The ENT_QUOTES flag makes sure that both single and double quotes will be escaped.
 ```php
 $escapedString = htmlspecialchars("<script>alert('xss');</script>", ENT_QUOTES);
 ```
@@ -31,10 +32,21 @@ if(substr($url, 0, strlen("http:")) === "http:" ||
 }
 ```
 # HTTP Header Injection
-The [header](https://secure.php.net/manual/en/function.header.php) function prevents the injection of multiple headers since PHP 5.1.2 (see [Changelog](https://secure.php.net/manual/en/function.header.php) at the bottom)
+The [header](https://secure.php.net/manual/en/function.header.php) function prevents the injection of multiple headers since PHP 5.1.2 (see [Changelog](https://secure.php.net/manual/en/function.header.php) at the bottom).
 
+# HTTP Header Parameter Injection
+User-provided header parameters should be avoided if possible. If it can't be avoided, consider a whitelist approach to accept only specific values. The following sample shows how to prevent unvalidated redirection attacks with a whitelist of valid locations.
+```php
+$parameterWhitelist = ["ManagementPanel", "Dashboard"];
+// Activate type checking of the needle-parameter by setting 
+// the third parameter of the in_array function to true
+if(in_array($parameter, $parameterWhitelist, true)){
+    header("Location: /" . $parameter, true, 302);
+    exit;
+}
+```
 # HTTP Security Headers
-The [header](https://secure.php.net/manual/en/function.header.php) function can be used to specify security headers. The following table lists the supported
+The [header](https://secure.php.net/manual/en/function.header.php) function can be used to specify security headers. The following table lists the supported.
 security headers:
 
 | Security Header  | Description |
