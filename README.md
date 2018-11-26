@@ -7,6 +7,7 @@ This is a summary of PHP-based countermeasures against certain vulnerabilities
 - [HTTP Header Injection](#http-header-injection)
 - [HTTP Header Parameter Injection](#http-header-parameter-injection)
 - [HTTP Security Headers](#http-security-headers)
+- [UI Redressing](#ui-redressing)
 
 # Cross-Site Request Forgery
 ### SameSite Cookie Attribute
@@ -61,4 +62,9 @@ security headers:
 ```php
 // Enable XSS filtering and block any detected XSS attacks
 header("X-XSS-Protection: 1; mode=block");
+```
+# UI Redressing
+To prevent UI redressing attacks such as Clickjacking, prohibit a malicious website from embedding your website in a frame by using the [X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) header.
+```php
+header("X-Frame-Options: deny");
 ```
