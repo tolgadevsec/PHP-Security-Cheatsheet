@@ -4,6 +4,7 @@ This is a summary of PHP-based countermeasures against certain vulnerabilities
 ## Table of Content
 - [Cross-Site Request Forgery](#cross-site-request-forgery)
 - [Cross-Site Scripting](#cross-site-scripting)
+- [Cryptographically Secure Pseudo-Random Values](#cryptographically-secure-pseudo-random-values)
 - [HTTP Header Injection](#http-header-injection)
 - [HTTP Header Parameter Injection](#http-header-parameter-injection)
 - [HTTP Security Headers](#http-security-headers)
@@ -32,6 +33,18 @@ if(substr($url, 0, strlen("http:")) === "http:" ||
    // Accept and process URL
 }
 ```
+# Cryptographically Secure Pseudo-Random Values
+### Pseudo-Random Bytes
+The [random_bytes](https://secure.php.net/manual/en/function.random-bytes.php) functions generates an arbitrary length string of pseudo-random bytes which are secure for cryptographic use.
+```php
+string random_bytes ( int $length )
+```
+### Pseudo-Random Integers
+The [random_int](https://secure.php.net/manual/en/function.random-int.php) functions generates a pseudo-random integer which is secure for cryptographic use.
+```php
+int random_int ( int $min , int $max )
+```
+
 # HTTP Header Injection
 The [header](https://secure.php.net/manual/en/function.header.php) function prevents the injection of multiple headers since PHP 5.1.2 (see [Changelog](https://secure.php.net/manual/en/function.header.php) at the bottom).
 
