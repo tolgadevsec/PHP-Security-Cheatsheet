@@ -19,7 +19,7 @@ string $domain = "" [, bool $secure = false [, bool $httponly = false [, string 
 ]]]]]]] )
 ```
 # Cross-Site Scripting
-### Context-Aware Escaping
+### Manual Context-Aware Escaping
 ###### Context: Inside a HTML element
 [htmlspecialchars](https://secure.php.net/manual/en/function.htmlspecialchars.php) escapes special HTML characters such as <,>,&," and ' which can be used to build XSS payloads. The ENT_QUOTES flag makes sure that both single and double quotes will be escaped.
 ```php
