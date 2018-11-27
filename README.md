@@ -1,5 +1,5 @@
 # PHP Security Cheatsheet
-This is a summary of PHP-based countermeasures against certain vulnerabilities
+This is a continuously updated listing of PHP-based countermeasures against certain types of vulnerabilities
 
 ## Table of Content
 - [Cross-Site Request Forgery](#cross-site-request-forgery)
