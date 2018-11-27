@@ -25,7 +25,7 @@ string $domain = "" [, bool $secure = false [, bool $httponly = false [, string 
 ```php
 $escapedString = htmlspecialchars("<script>alert('xss');</script>", ENT_QUOTES);
 ```
-###### Context: URL in HREF attribute of an anchor element 
+###### Context: User-provided URLs
 User-provided URLs should not beginn with the JavaScript pseudo protocol (javascript:). This can be prevented by accepting only URLs that beginn with the HTTP (http:) or HTTPS (https:) protocol
 ```php
 if(substr($url, 0, strlen("http:")) === "http:" ||
