@@ -33,6 +33,14 @@ if(substr($url, 0, strlen("http:")) === "http:" ||
    // Accept and process URL
 }
 ```
+### HTTPOnly Cookie Attribute
+The HTTPOnly cookie attribute signals the Browser to prevent any client-side scripts from accessing data stored in a cookie. The intention behind this cookie attribute is to protect session identifiers within cookies from XSS attacks with a session hijacking payload. Please note that this cookie attribute does not prevent XSS attacks in general.
+```php
+bool setcookie ( string $name [, string $value = "" [, int $expire = 0 [, string $path = "" [, 
+string $domain = "" [, bool $secure = false [, bool $httponly = false [, string $samesite = "" 
+]]]]]]] )
+```
+
 # Cryptographically Secure Pseudo-Random Values
 ### Pseudo-Random Bytes
 The [random_bytes](https://secure.php.net/manual/en/function.random-bytes.php) functions generates an arbitrary length string of pseudo-random bytes which are secure for cryptographic use.
