@@ -57,20 +57,20 @@ or double quotes. For example, the htmlentities function won't encode the charac
 payload:
 
 ```
-1 onmouseover=alert(1);
+1 onmouseover=alert(1)
 ```
 
 This payload can be used in a situation like the following:
 
 ```html
-<div data-custom-attribute-value=1 onmouseover=alert(1);></div>
+<div data-custom-attribute-value=1 onmouseover=alert(1)></div>
 ```
 
-However, when the `ENT_HTML5` flag is used, the payload would not be usable
+However, with the `ENT_HTML5` flag, the payload would not be usable
 in the previously described situation:
 
 ```html
-<div data-custom-attribute-value=1 onmouseover&equals;alert&lpar;1&rpar;&semi;></div>
+<div data-custom-attribute-value=1 onmouseover&equals;alert&lpar;1&rpar;></div>
 ```
 
 Regardless of the flag you set, always enclose HTML attributes in single or double quotes. 
