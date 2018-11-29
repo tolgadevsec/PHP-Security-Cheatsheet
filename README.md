@@ -21,9 +21,10 @@ string $domain = "" [, bool $secure = false [, bool $httponly = false [, string 
 # Cross-Site Scripting
 ### Manual Context-Aware Escaping
 ###### Context: Inside a HTML element
-[htmlspecialchars](https://secure.php.net/manual/en/function.htmlspecialchars.php) escapes special HTML characters such as <,>,&," and ' which can be used to build XSS payloads. The ENT_QUOTES flag makes sure that both single and double quotes will be escaped.
+[htmlspecialchars](https://secure.php.net/manual/en/function.htmlspecialchars.php) escapes special HTML characters such as <,>,&," and ' which can be used to build XSS payloads. The ENT_QUOTES flag makes sure that both single and double quotes will be escaped. The third parameter specifies the target character set. The value of this parameter should be equal to the character set defined in the target HTML document.
+
 ```php
-$escapedString = htmlspecialchars("<script>alert('xss');</script>", ENT_QUOTES);
+$escapedString = htmlspecialchars("<script>alert('xss');</script>", ENT_QUOTES, "UTF-8");
 ```
 ###### Context: User-provided URLs
 User-provided URLs should not beginn with the JavaScript pseudo protocol (javascript:). This can be prevented by accepting only URLs that beginn with the HTTP (http:) or HTTPS (https:) protocol
@@ -79,7 +80,6 @@ security headers:
 | [Expect-CT](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect-CT) | Determines if your website is ready for [Certificate Transparency](https://www.certificate-transparency.org/) (CT) and enforces it if it is  |
 | [Feature-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy) | Allows or disallows the use of certain Web APIs such as the Geolocation API  |
 | [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)  | Enables and configures XSS filtering available in some Browsers  |
-| [X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)  | Controls if a Browser is allowed to load a page inside a frame  |
 
 ```php
 // Enable XSS filtering and block any detected XSS attacks
