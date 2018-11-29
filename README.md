@@ -15,14 +15,19 @@ This is a continuously updated listing of PHP-based countermeasures against cert
 - [UI Redressing](#ui-redressing)
 
 # Cross-Site Request Forgery
+
 ### SameSite Cookie Attribute
-The SameSite cookie attribute is supported in [PHP >= 7.3](https://wiki.php.net/rfc/same-site-cookie). However, since this cookie attribute is relatively new, some older browser versions [might not fully support](https://caniuse.com/#feat=same-site-cookie-attribute) this cookie attribute in the future.
+The support of the SameSite cookie attribute was introduced in [PHP 7.3](https://wiki.php.net/rfc/same-site-cookie).
 
 ```php
 bool setcookie ( string $name [, string $value = "" [, int $expire = 0 [, string $path = "" [, 
 string $domain = "" [, bool $secure = false [, bool $httponly = false [, string $samesite = "" 
 ]]]]]]] )
 ```
+
+However, since this cookie attribute is relatively new, some older browser versions [do not support or only partially support](https://caniuse.com/#feat=same-site-cookie-attribute) this cookie attribute.
+
+Be also aware that the SameSite cookie attribute won't prevent request forgery attacks that occur on-site ([OSRF](https://portswigger.net/blog/on-site-request-forgery)).
 
 # Cross-Site Scripting
 ### Manual Context-Aware Escaping
