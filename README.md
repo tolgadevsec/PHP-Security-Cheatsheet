@@ -9,6 +9,7 @@ This is a continuously updated listing of PHP-based countermeasures against cert
 - [HTTP Header Injection](#http-header-injection)
 - [HTTP Header Parameter Injection](#http-header-parameter-injection)
 - [HTTP Security Headers](#http-security-headers)
+- [Information Disclosure](#information-disclosure)
 - [UI Redressing](#ui-redressing)
 
 # Cross-Site Request Forgery
@@ -20,6 +21,7 @@ bool setcookie ( string $name [, string $value = "" [, int $expire = 0 [, string
 string $domain = "" [, bool $secure = false [, bool $httponly = false [, string $samesite = "" 
 ]]]]]]] )
 ```
+
 # Cross-Site Scripting
 ### Manual Context-Aware Escaping
 ###### Context: Inside a HTML element
@@ -46,7 +48,7 @@ string $domain = "" [, bool $secure = false [, bool $httponly = false [, string 
 ]]]]]]] )
 ```
 
-You can also set the HTTPOnly cookie attribute in your PHP configuration using the [session.cookie_httponly](https://secure.php.net/manual/en/session.configuration.php#ini.session.cookie-httponly) parameter.
+You can also set the HTTPOnly cookie attribute in your PHP configuration file using the [session.cookie_httponly](https://secure.php.net/manual/en/session.configuration.php#ini.session.cookie-httponly) parameter.
 
 ```
 session.cookie_httponly = true
@@ -103,8 +105,7 @@ if(in_array($parameter, $parameterWhitelist, true)){
 ```
 
 # HTTP Security Headers
-The [header](https://secure.php.net/manual/en/function.header.php) function can be used to specify security headers. The following table lists the supported.
-security headers:
+The [header](https://secure.php.net/manual/en/function.header.php) function can be used to specify security headers. The following table lists the supported security headers:
 
 | Security Header  | Description |
 | ------------- | ------------- |
@@ -113,6 +114,26 @@ security headers:
 | [Referrer-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy) | Controls the content of the Referrer header  |
 | [Expect-CT](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect-CT) | Determines if your website is ready for [Certificate Transparency](https://www.certificate-transparency.org/) (CT) and enforces it if it is  |
 | [Feature-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy) | Allows or disallows the use of certain Web APIs such as the Geolocation API  |
+
+# Information Disclosure
+### PHP Exposure
+The following countermeasures are meant to hide the fact that your web application is built in PHP. Be aware that hiding this fact won't make existing vulnerabilities in your web application go away. It is rather meant as a countermeasure against the reconnaissance process of an attacker, where an attacker attempts to learn as much about a target system as possible. 
+
+Obviously, the techniques in this section won't be of much use if functionalities of a web application are accessed by requests such as `/showImage.php?id=23` where the file extension exposes the technology in use. However, you can hide the file extension on the fly with [mod_rewrite](https://httpd.apache.org/docs/2.4/mod/mod_rewrite.html) if you are serving your web application with the Apache web server. 
+
+###### Rename PHP Session Name
+The default session name is `PHPSESSID`, you can change this name by setting the [session.name](https://secure.php.net/manual/en/session.configuration.php#ini.session.name) parameter in your PHP configuration file.
+
+```
+session.name = "SESSION_IDENTITY"
+```
+
+###### Disable X-Powered-By Header
+Setting the [expose_php](https://secure.php.net/manual/en/ini.core.php#ini.expose-php) parameter to `off` in your PHP configuration file will removed the X-Powered-By Header from any HTTP Response.
+
+```
+expose_php = off
+```
 
 # UI Redressing
 To prevent UI redressing attacks such as Clickjacking, prohibit a malicious website from embedding your website in a frame by using the [X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) header.
