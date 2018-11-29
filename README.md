@@ -9,6 +9,7 @@ This is a continuously updated listing of PHP-based countermeasures against cert
 - [File Inclusion](#file-inclusion)
 - [HTTP Header Injection](#http-header-injection)
 - [HTTP Header Parameter Injection](#http-header-parameter-injection)
+- [HTTP Response Splitting](#http-header-injection)
 - [HTTP Security Headers](#http-security-headers)
 - [Information Disclosure](#information-disclosure)
 - [UI Redressing](#ui-redressing)
