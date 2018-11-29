@@ -41,6 +41,12 @@ bool setcookie ( string $name [, string $value = "" [, int $expire = 0 [, string
 string $domain = "" [, bool $secure = false [, bool $httponly = false [, string $samesite = "" 
 ]]]]]]] )
 ```
+### X-XSS-Protection Header
+The [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection) header nables and configures XSS filtering available in some Browsers.
+
+```php
+header("X-XSS-Protection: 1; mode=block");
+```
 
 # Cryptographically Secure Pseudo-Random Values
 ### Pseudo-Random Bytes
@@ -79,12 +85,7 @@ security headers:
 | [Referrer-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy) | Controls the content of the Referrer header  |
 | [Expect-CT](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect-CT) | Determines if your website is ready for [Certificate Transparency](https://www.certificate-transparency.org/) (CT) and enforces it if it is  |
 | [Feature-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy) | Allows or disallows the use of certain Web APIs such as the Geolocation API  |
-| [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)  | Enables and configures XSS filtering available in some Browsers  |
 
-```php
-// Enable XSS filtering and block any detected XSS attacks
-header("X-XSS-Protection: 1; mode=block");
-```
 # UI Redressing
 To prevent UI redressing attacks such as Clickjacking, prohibit a malicious website from embedding your website in a frame by using the [X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) header.
 ```php
