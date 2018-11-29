@@ -23,13 +23,13 @@ string $domain = "" [, bool $secure = false [, bool $httponly = false [, string 
 # Cross-Site Scripting
 ### Manual Context-Aware Escaping
 ###### Context: Inside a HTML element
-[htmlspecialchars](https://secure.php.net/manual/en/function.htmlspecialchars.php) escapes special HTML characters such as <,>,&," and ' which can be used to build XSS payloads. The ENT_QUOTES flag makes sure that both single and double quotes will be escaped. The third parameter specifies the target character set. The value of this parameter should be equal to the character set defined in the target HTML document.
+[htmlspecialchars](https://secure.php.net/manual/en/function.htmlspecialchars.php) escapes special HTML characters such as <,>,&," and ' which can be used to build XSS payloads. The `ENT_QUOTES` flag makes sure that both single and double quotes will be escaped. The third parameter specifies the target character set. The value of this parameter should be equal to the character set defined in the target HTML document.
 
 ```php
 $escapedString = htmlspecialchars("<script>alert('xss');</script>", ENT_QUOTES, "UTF-8");
 ```
 ###### Context: User-provided URLs
-User-provided URLs should not beginn with the JavaScript pseudo protocol (javascript:). This can be prevented by accepting only URLs that beginn with the HTTP (http:) or HTTPS (https:) protocol
+User-provided URLs should not beginn with the JavaScript pseudo protocol (`javascript:`). This can be prevented by accepting only URLs that beginn with the HTTP (`http:`) or HTTPS (`https:`) protocol.
 
 ```php
 if(substr($url, 0, strlen("http:")) === "http:" ||
@@ -45,6 +45,7 @@ bool setcookie ( string $name [, string $value = "" [, int $expire = 0 [, string
 string $domain = "" [, bool $secure = false [, bool $httponly = false [, string $samesite = "" 
 ]]]]]]] )
 ```
+
 You can also set the HTTPOnly cookie attribute in your PHP configuration using the [session.cookie_httponly](https://secure.php.net/manual/en/session.configuration.php#ini.session.cookie-httponly) parameter.
 
 ```
