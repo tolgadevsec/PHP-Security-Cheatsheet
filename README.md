@@ -29,11 +29,11 @@ string $domain = "" [, bool $secure = false [, bool $httponly = false [, string 
 $escapedString = htmlspecialchars("<script>alert('xss');</script>", ENT_QUOTES, "UTF-8");
 ```
 ###### Context: User-provided URLs
-User-provided URLs should not beginn with the JavaScript pseudo protocol (`javascript:`). This can be prevented by accepting only URLs that beginn with the HTTP (`http:`) or HTTPS (`https:`) protocol.
+User-provided URLs should not beginn with the JavaScript pseudo protocol (`javascript`). This can be prevented by accepting only URLs that beginn with the HTTP (`http`) or HTTPS (`https`) protocol.
 
 ```php
-if(substr($url, 0, strlen("http:")) === "http:" ||
-   substr($url, 0, strlen("https:")) === "https:"){
+if(substr($url, 0, strlen("http")) === "http" ||
+   substr($url, 0, strlen("https")) === "https"){
    // Accept and process URL
 }
 ```
