@@ -5,6 +5,7 @@ This is a continuously updated listing of PHP-based countermeasures against cert
 - [Cross-Site Request Forgery](#cross-site-request-forgery)
 - [Cross-Site Scripting](#cross-site-scripting)
 - [Cryptographically Secure Pseudo-Random Values](#cryptographically-secure-pseudo-random-values)
+- [Directory Traversal](#file-inclusion)
 - [File Inclusion](#file-inclusion)
 - [HTTP Header Injection](#http-header-injection)
 - [HTTP Header Parameter Injection](#http-header-parameter-injection)
@@ -77,7 +78,7 @@ int random_int ( int $min , int $max )
 ```
 
 # File Inclusion
-The user should not have the possibility to control parameters that include files from the local filesystem or from a remote host. If this behavior cannot be changed, apply parameter whitelisting such that only valid parameters are accepted.
+The user should not have the possibility to control parameters that include files from the local filesystem or from a remote host. If this behavior cannot be changed, apply parameter whitelisting such that only valid parameters are accepted. This will also prevent attackers from traversing through the local file system.
 
 ```php
 $parameterWhitelist = ["preview", "gallery"];
