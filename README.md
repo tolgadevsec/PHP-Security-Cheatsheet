@@ -36,11 +36,18 @@ if(substr($url, 0, strlen("http:")) === "http:" ||
 ```
 ### HTTPOnly Cookie Attribute
 The HTTPOnly cookie attribute signals the Browser to prevent any client-side scripts from accessing data stored in a cookie. The intention behind this cookie attribute is to protect session identifiers within cookies from XSS attacks with a session hijacking payload. Please note that this cookie attribute does not prevent XSS attacks in general.
+
 ```php
 bool setcookie ( string $name [, string $value = "" [, int $expire = 0 [, string $path = "" [, 
 string $domain = "" [, bool $secure = false [, bool $httponly = false [, string $samesite = "" 
 ]]]]]]] )
 ```
+You can also set the HTTPOnly cookie attribute in your PHP configuration using the [session.cookie_httponly] (https://secure.php.net/manual/en/session.configuration.php#ini.session.cookie-httponly) parameter.
+
+```
+session.cookie_httponly = true
+```
+
 ### X-XSS-Protection Header
 The [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection) header nables and configures XSS filtering available in some Browsers.
 
