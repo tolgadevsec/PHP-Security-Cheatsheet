@@ -26,12 +26,60 @@ string $domain = "" [, bool $secure = false [, bool $httponly = false [, string 
 
 # Cross-Site Scripting
 ### Manual Context-Aware Escaping
-###### Context: Inside a HTML element
-[htmlspecialchars](https://secure.php.net/manual/en/function.htmlspecialchars.php) escapes special HTML characters such as `<`,`>`,`&`,`"` and `'` which can be used to build XSS payloads. The `ENT_QUOTES` flag makes sure that both single and double quotes will be escaped. The third parameter specifies the target character set. The value of this parameter should be equal to the character set defined in the target HTML document.
+###### Context: Inside a HTML element and HTML element attribute
+[htmlentities](https://secure.php.net/manual/en/function.htmlentities.php) encodes all characters which have a reference in a specified HTML entity set. 
 
 ```php
-$escapedString = htmlspecialchars("<script>alert('xss');</script>", ENT_QUOTES, "UTF-8");
+$escapedString = htmlentities("<script>alert('xss');</script>", ENT_QUOTES | ENT_HTML5, "UTF-8", true);
 ```
+
+The `ENT_QUOTES` flag makes sure that both single and double quotes will be encoded since the default flag does not encode single quotes. The `ENT_HTML5` flag encodes characters to their referenced entities in the [HTML5 entity set](https://www.quackit.com/character_sets/html5_entities/). Using the HTML5 entity set has the advantage that most of the special characters will be encoded as well in comparsion to the default flag (`ENT_HTML401`).
+
+Special Characters:
+``` 
++-#~_.,;:@€<§%&/()=?*'"°^[]{}\`´=<,|²³
+```
+
+Encoded with `ENT_HTML401` Flag (Default):
+```
++-#~_.,;:@&euro;&lt;&sect;%&amp;/()=?*&#039;&quot;&deg;^[]{}\`&acute;=&lt;,|&sup2;&sup3;
+```
+
+Encoded with `ENT_HTML5` Flag:
+```
+&plus;-&num;~&lowbar;&period;&comma;&semi;&colon;&commat;&euro;&lt;&sect;&percnt;&amp;&sol;
+&lpar;&rpar;&equals;&quest;&ast;&apos;&quot;&deg;&Hat;&lbrack;&rsqb;&lbrace;&rcub;&bsol;&grave;
+&DiacriticalAcute;&equals;&lt;&comma;&vert;&sup2;&sup3;
+```
+
+The default flag won't protect you sufficiently if you forget to enclose your HTML attributes in single
+or double quotes. For example, the htmlentities function won't encode the characters of the following XSS 
+payload:
+
+```
+1 onmouseover=alert(1);
+```
+
+This payload can be used in a situation like the following:
+
+```html
+<div data-custom-attribute-value=1 onmouseover=alert(1);></div>
+```
+
+However, when the `ENT_HTML5` flag is used, the payload would not be usable
+in the previously described situation:
+
+```html
+<div data-custom-attribute-value=1 onmouseover&equals;alert&lpar;1&rpar;&semi;></div>
+```
+
+Regardless of the flag you set, always enclose HTML attributes in single or double quotes. 
+
+With the third parameter of the htmlentities function, the target character set is specified. The value of 
+this parameter should be equal to the character set defined in the target HTML document (e.g. UTF-8). 
+
+Finally, the fourth parameter prevents double escaping if set to true.
+
 ###### Context: User-provided URLs
 User-provided URLs should not beginn with the JavaScript pseudo protocol (`javascript`). This can be prevented by accepting only URLs that beginn with the HTTP (`http`) or HTTPS (`https`) protocol.
 
