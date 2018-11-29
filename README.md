@@ -5,6 +5,7 @@ This is a continuously updated listing of PHP-based countermeasures against cert
 - [Cross-Site Request Forgery](#cross-site-request-forgery)
 - [Cross-Site Scripting](#cross-site-scripting)
 - [Cryptographically Secure Pseudo-Random Values](#cryptographically-secure-pseudo-random-values)
+- [File Inclusion](#file-inclusion)
 - [HTTP Header Injection](#http-header-injection)
 - [HTTP Header Parameter Injection](#http-header-parameter-injection)
 - [HTTP Security Headers](#http-security-headers)
@@ -13,6 +14,7 @@ This is a continuously updated listing of PHP-based countermeasures against cert
 # Cross-Site Request Forgery
 ### SameSite Cookie Attribute
 The SameSite cookie attribute is supported in [PHP >= 7.3](https://wiki.php.net/rfc/same-site-cookie).
+
 ```php
 bool setcookie ( string $name [, string $value = "" [, int $expire = 0 [, string $path = "" [, 
 string $domain = "" [, bool $secure = false [, bool $httponly = false [, string $samesite = "" 
@@ -28,6 +30,7 @@ $escapedString = htmlspecialchars("<script>alert('xss');</script>", ENT_QUOTES, 
 ```
 ###### Context: User-provided URLs
 User-provided URLs should not beginn with the JavaScript pseudo protocol (javascript:). This can be prevented by accepting only URLs that beginn with the HTTP (http:) or HTTPS (https:) protocol
+
 ```php
 if(substr($url, 0, strlen("http:")) === "http:" ||
    substr($url, 0, strlen("https:")) === "https:"){
@@ -58,13 +61,28 @@ header("X-XSS-Protection: 1; mode=block");
 # Cryptographically Secure Pseudo-Random Values
 ### Pseudo-Random Bytes
 The [random_bytes](https://secure.php.net/manual/en/function.random-bytes.php) functions generates an arbitrary length string of pseudo-random bytes which are secure for cryptographic use.
+
 ```php
 string random_bytes ( int $length )
 ```
+
 ### Pseudo-Random Integers
 The [random_int](https://secure.php.net/manual/en/function.random-int.php) functions generates a pseudo-random integer which is secure for cryptographic use.
+
 ```php
 int random_int ( int $min , int $max )
+```
+
+# File Inclusion
+The user should not have the possibility to control parameters that include files from the local filesystem or from a remote host. If this behavior cannot be changed, apply parameter whitelisting such that only valid parameters are accepted.
+
+```php
+$parameterWhitelist = ["preview", "gallery"];
+// Activate type checking of the needle-parameter by setting 
+// the third parameter of the in_array function to true
+if(in_array($parameter, $parameterWhitelist, true)){
+    include($parameter . ".php");
+}
 ```
 
 # HTTP Header Injection
@@ -72,6 +90,7 @@ The [header](https://secure.php.net/manual/en/function.header.php) function prev
 
 # HTTP Header Parameter Injection
 User-provided header parameters should be avoided if possible. If it can't be avoided, consider a whitelist approach to accept only specific values. The following sample shows how to prevent unvalidated redirection attacks with a whitelist of valid locations.
+
 ```php
 $parameterWhitelist = ["ManagementPanel", "Dashboard"];
 // Activate type checking of the needle-parameter by setting 
@@ -81,6 +100,7 @@ if(in_array($parameter, $parameterWhitelist, true)){
     exit;
 }
 ```
+
 # HTTP Security Headers
 The [header](https://secure.php.net/manual/en/function.header.php) function can be used to specify security headers. The following table lists the supported.
 security headers:
@@ -95,6 +115,7 @@ security headers:
 
 # UI Redressing
 To prevent UI redressing attacks such as Clickjacking, prohibit a malicious website from embedding your website in a frame by using the [X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) header.
+
 ```php
 header("X-Frame-Options: deny");
 ```
