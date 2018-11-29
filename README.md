@@ -49,7 +49,7 @@ session.cookie_httponly = true
 ```
 
 ### X-XSS-Protection Header
-The [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection) header nables and configures XSS filtering available in some Browsers.
+The [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection) header nables and configures XSS filtering available in some Browsers. Without the mode=block parameter, the Browser will render the page after it has been sanitized. 
 
 ```php
 header("X-XSS-Protection: 1; mode=block");
