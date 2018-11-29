@@ -40,7 +40,7 @@ Special Characters:
 +-#~_.,;:@€<§%&/()=?*'"°^[]{}\`´=<,|²³
 ```
 
-Encoded with `ENT_HTML401` Flag (Default):
+Encoded with `ENT_HTML401` Flag:
 ```
 +-#~_.,;:@&euro;&lt;&sect;%&amp;/()=?*&#039;&quot;&deg;^[]{}\`&acute;=&lt;,|&sup2;&sup3;
 ```
