@@ -42,7 +42,7 @@ bool setcookie ( string $name [, string $value = "" [, int $expire = 0 [, string
 string $domain = "" [, bool $secure = false [, bool $httponly = false [, string $samesite = "" 
 ]]]]]]] )
 ```
-You can also set the HTTPOnly cookie attribute in your PHP configuration using the [session.cookie_httponly] (https://secure.php.net/manual/en/session.configuration.php#ini.session.cookie-httponly) parameter.
+You can also set the HTTPOnly cookie attribute in your PHP configuration using the [session.cookie_httponly](https://secure.php.net/manual/en/session.configuration.php#ini.session.cookie-httponly) parameter.
 
 ```
 session.cookie_httponly = true
