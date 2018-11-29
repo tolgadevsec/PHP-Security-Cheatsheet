@@ -16,7 +16,7 @@ This is a continuously updated listing of PHP-based countermeasures against cert
 
 # Cross-Site Request Forgery
 ### SameSite Cookie Attribute
-The SameSite cookie attribute is supported in [PHP >= 7.3](https://wiki.php.net/rfc/same-site-cookie). However, some older browser versions which won't receive updates in the future [might not profit](https://caniuse.com/#feat=same-site-cookie-attribute) from this cookie attribute since this cookie attribute is [relatively new](https://tools.ietf.org/html/draft-west-first-party-cookies-07)
+The SameSite cookie attribute is supported in [PHP >= 7.3](https://wiki.php.net/rfc/same-site-cookie). However, since this cookie attribute is relatively new, some older browser versions [might not fully support](https://caniuse.com/#feat=same-site-cookie-attribute) this cookie attribute in the future.
 
 ```php
 bool setcookie ( string $name [, string $value = "" [, int $expire = 0 [, string $path = "" [, 
