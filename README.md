@@ -44,7 +44,6 @@ if($requestHeaders !== false &&
 This technique should not be the main line of defense against CSRF attacks as there have been vulnerabilities in the past that enabled the sending of cross-site requests containing arbitrary HTTP request headers ([CVE-2017-0140](https://www.securify.nl/advisory/SFY20170101/microsoft-edge-fetch-api-allows-setting-of-arbitrary-request-headers.html)). There is no guarantee that this cannot happen again in the future.
 
 # Cross-Site Scripting
-**NOTE**
 > Server-side countermeasures will not be enough to prevent XSS attacks as certain types of XSS, such as DOM-based XSS, 
 > are the results of flaws in the client-side code. In case of DOM-based XSS, I recommend to use [DOMPurify](https://github.com/cure53/DOMPurify) and 
 > to take a look at the [DOM-based XSS Prevention Cheatsheet](https://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet). Furthermore, you should also follow the development of [Trusted Types for DOM Manipulation](https://github.com/WICG/trusted-types).
