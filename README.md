@@ -28,6 +28,18 @@ However, since this cookie attribute is relatively new, some older browser versi
 
 Be also aware that the SameSite cookie attribute won't prevent request forgery attacks that occur on-site ([OSRF](https://portswigger.net/blog/on-site-request-forgery)).
 
+### Enforce CORS Preflight with Custom Headers
+If a HTTP request contains a custom header, the Browser will send a [CORS preflight request](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#Preflighted_requests) before it continues to send the original request. If no CORS policy has been set on the server, requests coming from another origin will fail.
+
+You can enforce this situation by checking for the existence of a custom HTTP request header in the list of headers returned by [apache_request_headers](https://secure.php.net/manual/en/function.apache-request-headers.php). 
+```php
+$requestHeaders = apache_request_headers();
+if($requestHeaders !== false && 
+   array_key_exists("X-Custom", $requestHeaders)){
+   // Move on with request processing   
+}
+```
+
 # Cross-Site Scripting
 ### Automatic Context-Aware Escaping
 Automatic context-aware escaping should be your main line of defense against XSS attacks. Personally, I recommend using the [Latte](https://latte.nette.org/en/guide#toc-context-aware-escaping) template engine as it covers various contexts such as HTML element, HTML attribute and the href attribute of an anchor element (See Context: User-provided URLs).
