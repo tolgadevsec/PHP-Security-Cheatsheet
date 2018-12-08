@@ -31,7 +31,7 @@ Be also aware that the SameSite cookie attribute won't prevent request forgery a
 
 # Cross-Site Scripting
 ### Automatic Context-Aware Escaping
-Automatic context-aware escaping should be your main line of defense against XSS attacks. Personally, I recommend using the [Latte](https://latte.nette.org/en/guide#toc-context-aware-escaping) template engine as it covers various contexts such as HTML element, HTML attribute and the href Attribute of an anchor element (See Context: User-provided URLs).
+Automatic context-aware escaping should be your main line of defense against XSS attacks. Personally, I recommend using the [Latte](https://latte.nette.org/en/guide#toc-context-aware-escaping) template engine as it covers various contexts such as HTML element, HTML attribute and the href attribute of an anchor element (See Context: User-provided URLs).
 
 ### Manual Context-Aware Escaping
 ###### Context: Inside a HTML element and HTML element attribute
@@ -161,18 +161,6 @@ if(in_array($parameter, $parameterWhitelist, true)){
     exit;
 }
 ```
-
-# HTTP Security Headers
-The [header](https://secure.php.net/manual/en/function.header.php) function can be used to specify security headers. The following table lists the supported security headers:
-
-| Security Header  | Description |
-| ------------- | ------------- |
-| [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)  | Defines a whitelist of trusted sources for resources such as images or scripts |
-| [Strict-Transport-Security](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security)  | Forces a browser to access a website only via HTTPS  |
-| [Referrer-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy) | Controls the content of the Referrer header  |
-| [Expect-CT](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect-CT) | Determines if your website is ready for [Certificate Transparency](https://www.certificate-transparency.org/) (CT) and enforces it if it is  |
-| [Feature-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy) | Allows or disallows the use of certain Web APIs such as the Geolocation API  |
-
 # Information Disclosure
 ### PHP Exposure
 The following countermeasures are meant to hide the fact that your web application is built in PHP. Be aware that hiding this fact won't make existing vulnerabilities in your web application go away. It is rather meant as a countermeasure against the reconnaissance process of an attacker, where an attacker attempts to learn as much about a target system as possible. 
