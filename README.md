@@ -30,6 +30,9 @@ However, since this cookie attribute is relatively new, some older browser versi
 Be also aware that the SameSite cookie attribute won't prevent request forgery attacks that occur on-site ([OSRF](https://portswigger.net/blog/on-site-request-forgery)).
 
 # Cross-Site Scripting
+### Automatic Context-Aware Escaping
+Automatic context-aware escaping should be your main line of defense against XSS attacks. Personally, I recommend using the [Latte](https://latte.nette.org/en/guide#toc-context-aware-escaping) template engine as it covers various contexts such as HTML element, HTML attribute and the href Attribute of an anchor element (See Context: User-provided URLs).
+
 ### Manual Context-Aware Escaping
 ###### Context: Inside a HTML element and HTML element attribute
 [htmlentities](https://secure.php.net/manual/en/function.htmlentities.php) encodes all characters which have a reference in a specified HTML entity set. 
@@ -38,7 +41,7 @@ Be also aware that the SameSite cookie attribute won't prevent request forgery a
 $escapedString = htmlentities("<script>alert('xss');</script>", ENT_QUOTES | ENT_HTML5, "UTF-8", true);
 ```
 
-The `ENT_QUOTES` flag makes sure that both single and double quotes will be encoded since the default flag does not encode single quotes. The `ENT_HTML5` flag encodes characters to their referenced entities in the [HTML5 entity set](https://www.quackit.com/character_sets/html5_entities/). Using the HTML5 entity set has the advantage that most of the special characters will be encoded as well in comparsion to the default flag (`ENT_HTML401`).
+The `ENT_QUOTES` flag makes sure that both single and double quotes will be encoded since the default flag does not encode single quotes. The `ENT_HTML5` flag encodes characters to their referenced entities in the [HTML5 entity set](https://www.quackit.com/character_sets/html5_entities/). Using the HTML5 entity set has the advantage that most of the special characters will be encoded as well in comparsion to the entity set defined by the default flag (`ENT_HTML401`).
 
 Special Characters:
 ``` 
