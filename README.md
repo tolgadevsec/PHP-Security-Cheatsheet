@@ -14,19 +14,35 @@ This is a continuously updated listing of PHP-based countermeasures against cert
 - [UI Redressing](#ui-redressing)
 
 # Cross-Site Request Forgery
-
-### SameSite Cookie Attribute
-The support of the SameSite cookie attribute was introduced in [PHP 7.3](https://wiki.php.net/rfc/same-site-cookie).
+### Anti-CSRF Tokens
+You can use the [random_bytes](https://secure.php.net/manual/en/function.random-bytes.php) function to generate a cryptographically secure pseudo-random token. The following example describes a proof of concept implementation in
+which the Anti-CSRF tokens are stored in the `$_SESSION` variable. The [bin2hex](https://secure.php.net/manual/en/function.bin2hex.php) function will be used in order to 
+prevent issues with the character representation of non-character bytes returned by `random_bytes`.
 
 ```php
-bool setcookie ( string $name [, string $value = "" [, int $expire = 0 [, string $path = "" [, 
-string $domain = "" [, bool $secure = false [, bool $httponly = false [, string $samesite = "" 
-]]]]]]] )
+session_start();
+
+$tokenLength = 64;
+
+$_SESSION["CSRF_TOKEN"] = bin2hex(random_bytes($tokenLength));
 ```
 
-However, since this cookie attribute is relatively new, some older browser versions [do not support or only partially support](https://caniuse.com/#feat=same-site-cookie-attribute) this cookie attribute.
+Instead of simply comparing two values and their data types with `===`, the [hash_equals](https://secure.php.net/manual/en/function.hash-equals.php) function is used to prevent timing attacks against string comparisons. Have a look at this article on [timing attacks](https://blog.ircmaxell.com/2014/11/its-all-about-time.html) for further details.
 
-Be also aware that the SameSite cookie attribute won't prevent request forgery attacks that occur on-site ([OSRF](https://portswigger.net/blog/on-site-request-forgery)).
+```php
+$serverToken = $_SESSION["CSRF_TOKEN"];
+$requestHeaders = apache_request_headers();
+
+if($requestHeaders !== false &&
+   array_key_exists("X-CSRF-Token", $requestHeaders)){
+   
+   $clientToken = $requestHeaders["X-CSRF-Token"];
+   
+   if(hash_equals($serverToken, $clientToken)){
+      // Move on with request processing
+   }
+}
+```
 
 ### Enforce CORS Preflight with Custom Headers
 If a HTTP request contains a custom header, the Browser will send a [CORS preflight request](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#Preflighted_requests) before it continues to send the original request. If no CORS policy has been set on the server, requests coming from another origin will fail. 
@@ -42,6 +58,19 @@ if($requestHeaders !== false &&
 ```
 
 This technique should not be the main line of defense against CSRF attacks as there have been vulnerabilities in the past that enabled the sending of cross-site requests containing arbitrary HTTP request headers ([CVE-2017-0140](https://www.securify.nl/advisory/SFY20170101/microsoft-edge-fetch-api-allows-setting-of-arbitrary-request-headers.html)). There is no guarantee that this cannot happen again in the future.
+
+### SameSite Cookie Attribute
+The support of the SameSite cookie attribute was introduced in [PHP 7.3](https://wiki.php.net/rfc/same-site-cookie).
+
+```php
+bool setcookie ( string $name [, string $value = "" [, int $expire = 0 [, string $path = "" [, 
+string $domain = "" [, bool $secure = false [, bool $httponly = false [, string $samesite = "" 
+]]]]]]] )
+```
+
+However, since this cookie attribute is relatively new, some older browser versions [do not support or only partially support](https://caniuse.com/#feat=same-site-cookie-attribute) this cookie attribute.
+
+Be also aware that the SameSite cookie attribute won't prevent request forgery attacks that occur on-site ([OSRF](https://portswigger.net/blog/on-site-request-forgery)).
 
 # Cross-Site Scripting
 > Server-side countermeasures will not be enough to prevent XSS attacks as certain types of XSS, such as DOM-based XSS, 
