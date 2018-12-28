@@ -227,6 +227,8 @@ display_startup_errors = Off
 > But it is not recommended as any fatal error would stop the execution of a PHP script and thus ignore the line with 
 > the [ini_set](https://secure.php.net/manual/en/function.ini-set.php) function call.
 
+Disabling the displaying of error messages should not be the primary defense against attacks like SQL Injection as there are other techniques such as [Blind SQL Injection](https://www.owasp.org/index.php/Blind_SQL_Injection) that do not necessarily rely on error messages.
+
 ### PHP Exposure
 The following countermeasures are meant to hide the fact that your web application is built in PHP. Be aware that hiding this fact won't make existing vulnerabilities in your web application go away. It is rather meant as a countermeasure against the reconnaissance process of an attacker, where an attacker attempts to learn as much about a target system as possible. 
 
