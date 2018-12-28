@@ -4,7 +4,7 @@ This is a continuously updated listing of PHP-based countermeasures against cert
 ## Table of Content
 - [Cross-Site Request Forgery](#cross-site-request-forgery)
 - [Cross-Site Scripting](#cross-site-scripting)
-- [Cryptographically Secure Pseudo-Random Values](#cryptographically-secure-pseudo-random-values)
+- [Insecure Random Values](#insecure-random-values)
 - [Directory Traversal](#file-inclusion)
 - [File Inclusion](#file-inclusion)
 - [HTTP Header Injection](#http-header-injection)
@@ -166,7 +166,7 @@ The [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
 header("X-XSS-Protection: 1; mode=block");
 ```
 
-# Cryptographically Secure Pseudo-Random Values
+# Insecure Random Values
 ### Pseudo-Random Bytes
 The [random_bytes](https://secure.php.net/manual/en/function.random-bytes.php) functions generates an arbitrary length string of pseudo-random bytes which are secure for cryptographic use.
 
