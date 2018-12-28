@@ -4,13 +4,13 @@ This is a continuously updated listing of PHP-based countermeasures against cert
 ## Table of Content
 - [Cross-Site Request Forgery](#cross-site-request-forgery)
 - [Cross-Site Scripting](#cross-site-scripting)
-- [Insecure Random Values](#insecure-random-values)
 - [Directory Traversal](#file-inclusion)
 - [File Inclusion](#file-inclusion)
 - [HTTP Header Injection](#http-header-injection)
 - [HTTP Header Parameter Injection](#http-header-parameter-injection)
 - [HTTP Response Splitting](#http-header-injection)
 - [Information Disclosure](#information-disclosure)
+- [Insecure Random Values](#insecure-random-values)
 - [UI Redressing](#ui-redressing)
 
 # Cross-Site Request Forgery
@@ -166,21 +166,6 @@ The [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
 header("X-XSS-Protection: 1; mode=block");
 ```
 
-# Insecure Random Values
-### Pseudo-Random Bytes
-The [random_bytes](https://secure.php.net/manual/en/function.random-bytes.php) functions generates an arbitrary length string of pseudo-random bytes which are secure for cryptographic use.
-
-```php
-string random_bytes ( int $length )
-```
-
-### Pseudo-Random Integers
-The [random_int](https://secure.php.net/manual/en/function.random-int.php) functions generates a pseudo-random integer which is secure for cryptographic use.
-
-```php
-int random_int ( int $min , int $max )
-```
-
 # File Inclusion
 The user should not have the possibility to control parameters that include files from the local filesystem or from a remote host. If this behavior cannot be changed, apply parameter whitelisting such that only valid parameters are accepted. This will also prevent attackers from traversing through the local file system.
 
@@ -246,6 +231,20 @@ Setting the [expose_php](https://secure.php.net/manual/en/ini.core.php#ini.expos
 
 ```
 expose_php = off
+```
+# Insecure Random Values
+### Pseudo-Random Bytes
+The [random_bytes](https://secure.php.net/manual/en/function.random-bytes.php) functions generates an arbitrary length string of pseudo-random bytes which are secure for cryptographic use.
+
+```php
+string random_bytes ( int $length )
+```
+
+### Pseudo-Random Integers
+The [random_int](https://secure.php.net/manual/en/function.random-int.php) functions generates a pseudo-random integer which is secure for cryptographic use.
+
+```php
+int random_int ( int $min , int $max )
 ```
 
 # UI Redressing
