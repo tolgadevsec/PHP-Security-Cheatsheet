@@ -209,6 +209,21 @@ if(in_array($parameter, $parameterWhitelist, true)){
 }
 ```
 # Information Disclosure
+### Error Messages
+Many attacks against web applications exploit error messages to infer information on how the attack payload needs to be adjusted for a successful attack. Example attack techniques that utilize error messages are [SQL Injection](https://en.wikipedia.org/wiki/SQL_injection) or a [Padding Oracle](https://en.wikipedia.org/wiki/Padding_oracle_attack). For that reason, production systems should never display error messages. Instead, error messages should be logged using a library like [Monolog](https://github.com/Seldaek/monolog).
+
+PHP provides the [display_errors](https://secure.php.net/manual/en/errorfunc.configuration.php#ini.display-errors) configuration parameter to determine if error messages should be part of the output. Use the value `Off` to disable displaying any error messages:
+
+```
+display_errors = Off
+```
+
+The same value should be applied for the [display_startup_errors](https://secure.php.net/manual/en/errorfunc.configuration.php#ini.display-startup-errors) configuration parameter which determines whether to display error messages that occur during PHP's startup sequence:
+
+```
+display_startup_errors = Off
+```
+
 ### PHP Exposure
 The following countermeasures are meant to hide the fact that your web application is built in PHP. Be aware that hiding this fact won't make existing vulnerabilities in your web application go away. It is rather meant as a countermeasure against the reconnaissance process of an attacker, where an attacker attempts to learn as much about a target system as possible. 
 
