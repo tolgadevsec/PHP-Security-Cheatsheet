@@ -217,16 +217,15 @@ PHP provides the [display_errors](https://secure.php.net/manual/en/errorfunc.con
 ```
 display_errors = Off
 ```
-
-> It is also possible to set this configuration parameter at runtime with `ini_set("display_errors", "Off");`. But it is not
-> recommended as any fatal error would stop the execution of a PHP script and thus ignore the line with the [ini_set](https://secure.php.net/manual/en/function.ini-set.php) function
-> call.
-
 The same value should be applied for the [display_startup_errors](https://secure.php.net/manual/en/errorfunc.configuration.php#ini.display-startup-errors) configuration parameter which determines whether to display error messages that occur during PHP's startup sequence.
 
 ```
 display_startup_errors = Off
 ```
+
+> It is also possible to set these configuration parameters at runtime with, e.g., `ini_set("display_errors", "Off");`. 
+> But it is not recommended as any fatal error would stop the execution of a PHP script and thus ignore the line with 
+> the [ini_set](https://secure.php.net/manual/en/function.ini-set.php) function call.
 
 ### PHP Exposure
 The following countermeasures are meant to hide the fact that your web application is built in PHP. Be aware that hiding this fact won't make existing vulnerabilities in your web application go away. It is rather meant as a countermeasure against the reconnaissance process of an attacker, where an attacker attempts to learn as much about a target system as possible. 
