@@ -249,7 +249,7 @@ int random_int ( int $min , int $max )
 ```
 
 # Template Injection
-This type of vulnerability occurs when the target template is built at runtime and parts of the template are controlled by the user. Template engines provide functions to safely embed user-controlled input into a template, make use of them. The following code snippet shows an example where user input is safely embeded into a [Smarty](https://www.smarty.net/) template.
+This type of vulnerability occurs when the target template is built at runtime and parts of the template are controlled by the user. Template engines provide functions to safely embed user-controlled input into a template, make use of them. The following code snippet shows an example where user input is safely embed in a [Smarty](https://www.smarty.net/) template. 
 
 ```php
 // Replacing {$searchTerm} with $_GET["searchTerm"] in the next line
@@ -260,7 +260,10 @@ $smarty = new Smarty();
 $smarty->assign("searchTerm", $_GET["searchTerm"]);
 $smarty->display("string:" . $templateString);
 ```
-> Template injection is not a vulnerability limited to server-side web technologies and can also occur on the client-side. 
+
+If you want to learn more on template injection vulnerabilities and how they can lead to remote code execution, watch this talk on [server-side template injection](https://www.youtube.com/watch?v=3cT0uE7Y87s) 
+
+> Template injection is not limited to server-side web technologies and can also occur on the client-side. 
 > Have a look at this talk on [client-side template injection](https://www.youtube.com/watch?v=VDAAGm_HUQU).
 
 # UI Redressing
