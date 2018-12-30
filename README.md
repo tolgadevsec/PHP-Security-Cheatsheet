@@ -11,6 +11,7 @@ This is a continuously updated listing of PHP-based countermeasures against cert
 - [HTTP Response Splitting](#http-header-injection)
 - [Information Disclosure](#information-disclosure)
 - [Insecure Random Values](#insecure-random-values)
+- [Template Injection](#template-injection)
 - [UI Redressing](#ui-redressing)
 
 # Cross-Site Request Forgery
@@ -246,6 +247,21 @@ The [random_int](https://secure.php.net/manual/en/function.random-int.php) funct
 ```php
 int random_int ( int $min , int $max )
 ```
+
+# Template Injection
+This type of vulnerability occurs when the target template is built at runtime and parts of the template are controlled by the user. Template engines provide functions to safely embed user-controlled input into a template, make use of them. The following code snippet shows an example where user input is safely embeded into a [Smarty](https://www.smarty.net/) template.
+
+```php
+// Replacing {$searchTerm} with $_GET["searchTerm"] in the next line
+// would introduce a template injection vulnerability
+$templateString = "You searched for: {$searchTerm}";
+
+$smarty = new Smarty();
+$smarty->assign("searchTerm", $_GET["searchTerm"]);
+$smarty->display("string:" . $templateString);
+```
+> Template injection is not a vulnerability limited to server-side web technologies and can also occur on the client-side. 
+> Have a look at this talk on [client-side template injection](https://www.youtube.com/watch?v=VDAAGm_HUQU).
 
 # UI Redressing
 To prevent UI redressing attacks such as Clickjacking, prohibit a malicious website from embedding your website in a frame by using the [X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) header.
