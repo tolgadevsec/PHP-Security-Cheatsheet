@@ -261,7 +261,7 @@ $smarty->assign("searchTerm", $_GET["searchTerm"]);
 $smarty->display("string:" . $templateString);
 ```
 
-If you want to learn more on template injection vulnerabilities and how they can lead to remote code execution, watch this talk on [server-side template injection](https://www.youtube.com/watch?v=3cT0uE7Y87s) 
+If you want to learn more on template injection vulnerabilities and how they can lead to remote code execution, watch this talk on [server-side template injection](https://www.youtube.com/watch?v=3cT0uE7Y87s). 
 
 > Template injection is not limited to server-side web technologies and can also occur on the client-side. 
 > Have a look at this talk on [client-side template injection](https://www.youtube.com/watch?v=VDAAGm_HUQU).
