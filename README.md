@@ -145,6 +145,60 @@ if(substr($url, 0, strlen("http")) === "http" ||
    // Accept and process URL
 }
 ```
+###### Context: Inside a script element or inline event handler
+PHP does not provide a native function to escape user input in a JavaScript context. The following code snippet is from the [Escaper Component](https://github.com/zendframework/zend-escaper/blob/master/src/Escaper.php) of the Zend Framework which implements JavaScript context escaping. 
+
+```php
+ /**
+  * Escape a string for the Javascript context. This does not use json_encode(). An extended
+  * set of characters are escaped beyond ECMAScript's rules for Javascript literal string
+  * escaping in order to prevent misinterpretation of Javascript as HTML leading to the
+  * injection of special characters and entities. The escaping used should be tolerant
+  * of cases where HTML escaping was not applied on top of Javascript escaping correctly.
+  * Backslash escaping is not used as it still leaves the escaped character as-is and so
+  * is not useful in a HTML context.
+  *
+  * @param string $string
+  * @return string
+  */
+ public function escapeJs($string)
+ {
+     $string = $this->toUtf8($string);
+     if ($string === '' || ctype_digit($string)) {
+         return $string;
+     }
+     $result = preg_replace_callback('/[^a-z0-9,\._]/iSu', $this->jsMatcher, $string);
+     return $this->fromUtf8($result);
+ }
+```
+```php
+ /**
+  * Callback function for preg_replace_callback that applies Javascript
+  * escaping to all matches.
+  *
+  * @param array $matches
+  * @return string
+  */
+ protected function jsMatcher($matches)
+ {
+     $chr = $matches[0];
+     if (strlen($chr) == 1) {
+         return sprintf('\\x%02X', ord($chr));
+     }
+     $chr = $this->convertEncoding($chr, 'UTF-16BE', 'UTF-8');
+     $hex = strtoupper(bin2hex($chr));
+     if (strlen($hex) <= 4) {
+         return sprintf('\\u%04s', $hex);
+     }
+     $highSurrogate = substr($hex, 0, 4);
+     $lowSurrogate = substr($hex, 4, 4);
+     return sprintf('\\u%04s\\u%04s', $highSurrogate, $lowSurrogate);
+ }
+```
+The jsMatcher function escapes each character of the target string that matches the regular expression used in the `escapeJs` function (`[^a-z0-9,\._]/iSu`). The current character will be encoded in hexadecimal if it is not greater than one byte. Note that [strlen](https://secure.php.net/en/strlen) returns the number of bytes and not the number of characters (this is a documented behavior). 
+
+Otherwise, the current character will be encoded in Unicode. Some characters can only be encoded in [UTF-16](https://en.wikipedia.org/wiki/UTF-16), using two 16-bit code units (referred as `$highSurrogate` and `$lowSurrogate` at the end of the `jsMatcher` function). This article on [JavaScript's internal character encoding](https://mathiasbynens.be/notes/javascript-encoding) will help you understand the details why certain characters need to be encoded in UTF-16.
+
 ### HTTPOnly Cookie Attribute
 The HTTPOnly cookie attribute signals the Browser to prevent any client-side scripts from accessing data stored in a cookie. The intention behind this cookie attribute is to protect session identifiers within cookies from XSS attacks with a session hijacking payload. Please note that this cookie attribute does not prevent XSS attacks in general.
 
