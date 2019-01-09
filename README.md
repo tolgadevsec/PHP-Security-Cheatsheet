@@ -79,7 +79,7 @@ Be also aware that the SameSite cookie attribute won't prevent request forgery a
 > to take a look at the [DOM-based XSS Prevention Cheatsheet](https://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet). Furthermore, you should also follow the development of [Trusted Types for DOM Manipulation](https://github.com/WICG/trusted-types).
 
 ### Automatic Context-Aware Escaping
-Automatic context-aware escaping should be your main line of defense against XSS attacks. Personally, I recommend using the [Latte](https://latte.nette.org/en/guide#toc-context-aware-escaping) template engine as it covers various contexts such as HTML element, HTML attribute and the href attribute of an anchor element (See Context: User-provided URLs).
+Automatic context-aware escaping should be your main line of defense against XSS attacks. Personally, I recommend using the [Latte](https://latte.nette.org/en/guide#toc-context-aware-escaping) template engine as it covers various contexts such as HTML element, HTML attribute and the href attribute of an anchor element.
 
 ### Manual Context-Aware Escaping
 ###### Context: Inside a HTML element and HTML element attribute
