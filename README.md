@@ -16,8 +16,8 @@ This is a continuously updated listing of PHP-based countermeasures against cert
 
 # Cross-Site Request Forgery
 ### Anti-CSRF Tokens
-You can use the [random_bytes](https://secure.php.net/manual/en/function.random-bytes.php) function to generate a cryptographically secure pseudo-random token. The following example describes a proof of concept implementation in
-which the Anti-CSRF tokens are stored in the `$_SESSION` variable. The [bin2hex](https://secure.php.net/manual/en/function.bin2hex.php) function will be used in order to 
+You can use the [random_bytes](https://secure.php.net/manual/en/function.random-bytes.php) function to generate a cryptographically secure pseudo-random token. The following example describes a basic implementation in
+which a Anti-CSRF token is delivered to the client in a custom HTTP response header (`X-CSRF-Token`). The [bin2hex](https://secure.php.net/manual/en/function.bin2hex.php) function will be used in order to 
 prevent issues with the character representation of non-character bytes returned by `random_bytes`.
 
 ```php
@@ -26,6 +26,10 @@ session_start();
 $tokenLength = 64;
 
 $_SESSION["CSRF_TOKEN"] = bin2hex(random_bytes($tokenLength));
+
+header("X-CSRF-Token: " . $_SESSION["CSRF_TOKEN"]);
+
+// ...
 ```
 
 Instead of simply comparing two values and their data types with `===`, the [hash_equals](https://secure.php.net/manual/en/function.hash-equals.php) function is used to prevent timing attacks against string comparisons. Have a look at this article on [timing attacks](https://blog.ircmaxell.com/2014/11/its-all-about-time.html) for further details.
