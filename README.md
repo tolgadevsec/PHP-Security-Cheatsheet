@@ -302,7 +302,7 @@ Setting the [expose_php](https://secure.php.net/manual/en/ini.core.php#ini.expos
 expose_php = off
 ```
 # Insecure Password Storage and Hashing
-It should be needless to say that passwords **should never be stored in _clear text_**. The best practice is to store the hash value of the password instead. PHP provides a built-in function for this purpose which is called [password_hash](https://www.php.net/manual/de/function.password-hash.php).  
+It should be needless to say that passwords **should never be stored in clear text**. The best practice is to store the hash value of the password instead. PHP provides a built-in function for this purpose which is called [password_hash](https://www.php.net/manual/de/function.password-hash.php).  
 
 ```php
 $clearTextPassword = "n0mn0mn0m";
