@@ -16,7 +16,7 @@ This is a continuously updated listing of PHP-based countermeasures against cert
 
 # Cross-Site Request Forgery
 ### Anti-CSRF Tokens
-You can use the [random_bytes](https://secure.php.net/manual/en/function.random-bytes.php) function to generate a cryptographically secure pseudo-random token. The following example describes a basic implementation in
+You can use the [random_bytes](https://secure.php.net/manual/en/function.random-bytes.php) function to generate a cryptographically secure pseudo-random token. The following example describes a basic proof of concept in
 which a Anti-CSRF token is delivered to the client in a custom HTTP response header (`X-CSRF-Token`). The [bin2hex](https://secure.php.net/manual/en/function.bin2hex.php) function will be used in order to 
 prevent issues with the character representation of non-character bytes returned by `random_bytes`.
 
@@ -220,7 +220,7 @@ session.cookie_httponly = true
 ```
 
 ### X-XSS-Protection Header
-The [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection) header nables and configures XSS filtering available in some Browsers. Without the `mode=block` parameter, the Browser will render the page after it has been sanitized. 
+The [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection) header enables and configures XSS filtering available in some Browsers. Without the `mode=block` parameter, the Browser will render the page after it has been sanitized. 
 
 ```php
 header("X-XSS-Protection: 1; mode=block");
