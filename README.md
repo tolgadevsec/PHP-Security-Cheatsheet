@@ -5,7 +5,7 @@ This cheatsheet is meant as an overview of some techniques and Proof-of-Concept 
 - [The 2018 Guide to Building Secure PHP Software](https://paragonie.com/blog/2017/12/2018-guide-building-secure-php-software)
 - [PHP: The Right Way - Security](https://phptherightway.com/#security)
 - [Survive The Deep End: PHP Security](https://phpsecurity.readthedocs.io/en/latest/)
-- [sqreen - The ultimate PHP Security Checklist](https://www.sqreen.com/checklists/php-security-checklist)
+- [The ultimate PHP Security Checklist](https://www.sqreen.com/checklists/php-security-checklist)
 
 ## Table of Content
 - [Cross-Site Request Forgery](#cross-site-request-forgery)
