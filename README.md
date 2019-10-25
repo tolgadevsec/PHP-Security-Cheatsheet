@@ -1,5 +1,5 @@
 # PHP Security Cheatsheet
-This cheatsheet is meant as an overview of some techniques and Proof-of-Concept (PoC) implementations of countermeasures against vulnerabilities that can occur within a PHP web application.
+This cheatsheet is an overview of some techniques, Proof-of-Concept (PoC) implementations and recommendations of countermeasures against vulnerabilities that can occur within a PHP web application.  
 
 ## Articles, Tutorials, Guides and Cheatsheets
 - [The 2018 Guide to Building Secure PHP Software](https://paragonie.com/blog/2017/12/2018-guide-building-secure-php-software)
@@ -9,7 +9,7 @@ This cheatsheet is meant as an overview of some techniques and Proof-of-Concept 
 - [PHP Configuration Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/PHP_Configuration_Cheat_Sheet.html)
 - [Awesome PHP Security](https://github.com/guardrailsio/awesome-php-security)
 
-## Table of Content
+## Table of Vulnerabilities
 - [Cross-Site Request Forgery](#cross-site-request-forgery)
 - [Cross-Site Scripting](#cross-site-scripting)
 - [Directory Traversal](#file-inclusion)
