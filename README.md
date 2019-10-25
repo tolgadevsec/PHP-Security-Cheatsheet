@@ -18,6 +18,7 @@ This cheatsheet is meant as an overview of some techniques and Proof-of-Concept 
 - [HTTP Header Parameter Injection](#http-header-parameter-injection)
 - [HTTP Response Splitting](#http-header-injection)
 - [Information Disclosure](#information-disclosure)
+- [Insecure Password Storage and Hashing](#insecure-password-storage-and-hashing)
 - [Insecure Random Values](#insecure-random-values)
 - [Template Injection](#template-injection)
 - [UI Redressing](#ui-redressing)
@@ -300,6 +301,9 @@ Setting the [expose_php](https://secure.php.net/manual/en/ini.core.php#ini.expos
 ```
 expose_php = off
 ```
+# Insecure Password Storage and Hashing
+It should be needless to say that passwords should never be stored in clear text. The best practice is to store the hash value of the password instead. PHP provides a built-in function for this purpose which is called `password_hash`.  
+
 # Insecure Random Values
 ### Pseudo-Random Bytes
 The [random_bytes](https://secure.php.net/manual/en/function.random-bytes.php) functions generates an arbitrary length string of pseudo-random bytes which are secure for cryptographic use.
