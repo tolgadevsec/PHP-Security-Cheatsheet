@@ -236,6 +236,26 @@ The [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
 header("X-XSS-Protection: 1; mode=block");
 ```
 
+### Content Security Policy
+Another effective defense against XSS attacks is to utilize a so called [Content Security Policy](https://developers.google.com/web/fundamentals/security/csp) (CSP). Essentially, a CSP is a whitelist of trusted sources from which a web application (the frontend part) is allowed to download and render/execute content. A CSP could therefore prevent the exfiltration of data (e.g. session ID) to a source that is not whitelisted. 
+
+In cases where an attacker cannot exfiltrate data but execute code, a CSP can still be beneficial as it provides mechanisms to prevent the execution of inline JavaScript code (unless `unsafe-inline` is explicitly specified as a trusted source). This, however, presumes an application architecture in which aspects such as the application's behavior and its appearance are separated (e.g. all JavaScript code are contained in .js files, all style instructions are cointained in .css files). If that should not be the case, you might be able to [use nonces to whitelist inlined resources](https://barryvanveen.nl/blog/47-how-to-prevent-the-use-of-unsafe-inline-in-csp).
+
+A CSP is delivered to a Browser as a HTTP response header as shown below:
+
+```php
+// Starter Policy from https://content-security-policy.com/
+header("Content-Security-Policy: default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';");
+```
+
+While the CSP in the example above is short and simple, it is not unusual to have a large CSP or a different CSP for specific pages. In such scenarios, it makes sense to make use of libraries such as the [CSP Builder](https://github.com/paragonie/csp-builder) to ease the integration and maintenance of CSPs.
+
+> A CSP is a mitigation technique against XSS attacks, **it does not fix the vulnerability** through which an XSS attack has
+> been executed. For that reason, a CSP should be rather seen as **a defense-in-depth strategy** on top of context-aware 
+> escaping of user-controlled input, which is far more important. Furthermore, as with all mitigation techniques, CSPs can
+> be bypassed with [Script Gadgets](https://github.com/google/security-research-pocs/tree/master/script-gadgets) 
+> or by exploiting [common CSP mistakes](http://conference.hitb.org/hitbsecconf2016ams/materials/D1T2%20-%20Michele%20Spagnuolo%20and%20Lukas%20Weichselbaum%20-%20CSP%20Oddities.pdf) to name but a few examples. 
+
 # File Inclusion
 The user should not have the possibility to control parameters that include files from the local filesystem or from a remote host. If this behavior cannot be changed, apply parameter whitelisting such that only valid parameters are accepted. This will also prevent attackers from traversing through the local file system.
 
