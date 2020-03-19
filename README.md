@@ -23,6 +23,7 @@ In case you are keen on learning more about PHP security, you can check out the 
 - [Insecure Random Values](#insecure-random-values)
 - [Template Injection](#template-injection)
 - [UI Redressing](#ui-redressing)
+- [Using Packages With Known Vulnerabilities](#using-packages-with-known-vulnerabilities)
 
 # Cross-Site Request Forgery
 ### Anti-CSRF Tokens
@@ -369,3 +370,11 @@ To prevent UI redressing attacks such as Clickjacking, prohibit a malicious webs
 ```php
 header("X-Frame-Options: deny");
 ```
+# Using Packages With Known Vulnerabilities
+When you integrate third party packages in your application, typically via a package manager like [Composer](https://getcomposer.org/), you might not be aware of packages containing exploitable vulnerabilities. Apart
+from staying up to date on vulnerabilities affecting the packages you use, you can also make use of security 
+packages like the one from [Roave](https://github.com/Roave/SecurityAdvisories) which prevents you from 
+installing known vulnerable packages in the first place. Roaves source for vulnerable PHP packages is the 
+[PHP Security Advisories Database](https://github.com/FriendsOfPHP/security-advisories).
+
+> Have a look at [A9 - Using Components with Known Vulnerabilities](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A9-Using_Components_with_Known_Vulnerabilities.html) from the [OWASP Top 10](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/) project for further guidance. 
