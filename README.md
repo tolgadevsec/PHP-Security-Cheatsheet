@@ -327,8 +327,17 @@ expose_php = off
 It should be needless to say that passwords **should never be stored in clear text**. The best practice is to store the hash value of the password instead. PHP provides a built-in function for this purpose which is called [password_hash](https://www.php.net/manual/de/function.password-hash.php).  
 
 ```php
-$clearTextPassword = "n0mn0mn0m";
+$clearTextPassword = $_POST["Password"];
 $passwordHash = password_hash($clearTextPassword, PASSWORD_DEFAULT);
+```
+
+You can use the built-in [password_verify](https://www.php.net/manual/en/function.password-verify.php) function to verify a user-provided password. The `password_verify` function will also require the hash value that you stored and generated with the `password_hash`function.
+
+```php
+$clearTextPassword = $_POST["Password"];
+if(password_verify($clearTextPassword, $passwordHash)){
+   // Password is correct
+}
 ```
 
 # Insecure Random Values
