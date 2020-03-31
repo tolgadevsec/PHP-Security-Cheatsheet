@@ -227,14 +227,7 @@ You can also set the HTTPOnly cookie attribute in your PHP configuration file us
 
 ```
 session.cookie_httponly = true
-```
-
-### X-XSS-Protection Header
-The [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection) header enables and configures XSS filtering available in some Browsers. Without the `mode=block` parameter, the Browser will render the page after it has been sanitized. 
-
-```php
-header("X-XSS-Protection: 1; mode=block");
-```
+``` 
 
 ### Content Security Policy
 Another effective defense against XSS attacks is to utilize a so called [Content Security Policy](https://developers.google.com/web/fundamentals/security/csp) (CSP). Essentially, a CSP is a whitelist of trusted sources from which a web application (the frontend part) is allowed to download and render/execute content. A CSP could therefore prevent the exfiltration of data (e.g. session ID) to a source that is not whitelisted. 
