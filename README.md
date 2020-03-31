@@ -105,7 +105,7 @@ Automatic context-aware escaping should be your main line of defense against XSS
 $escapedString = htmlentities("<script>alert('xss');</script>", ENT_QUOTES | ENT_HTML5, "UTF-8", true);
 ```
 
-The `ENT_QUOTES` flag makes sure that both single and double quotes will be encoded since the default flag does not encode single quotes. The `ENT_HTML5` flag encodes characters to their referenced entities in the [HTML5 entity set](https://www.quackit.com/character_sets/html5_entities/). Using the HTML5 entity set has the advantage that most of the special characters will be encoded as well in comparsion to the entity set defined by the default flag (`ENT_HTML401`).
+The `ENT_QUOTES` flag makes sure that both single and double quotes will be encoded since the default flag does not encode single quotes. The `ENT_HTML5` flag encodes characters to their referenced entities in the [HTML5 entity set](https://dev.w3.org/html5/html-author/charref). Using the HTML5 entity set has the advantage that most of the special characters will be encoded as well in comparsion to the entity set defined by the default flag (`ENT_HTML401`).
 
 Special Characters:
 ``` 
