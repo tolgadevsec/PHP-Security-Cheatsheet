@@ -124,8 +124,8 @@ Encoded with `ENT_HTML5` Flag:
 &DiacriticalAcute;&equals;&lt;&comma;&vert;&sup2;&sup3;
 ```
 
-The default flag won't protect you sufficiently if you forget to enclose your HTML attributes in single
-or double quotes. For example, the htmlentities function won't encode the characters of the following XSS 
+The default flag won't protect you sufficiently if you forget to enclose your HTML attributes in **single quotes**
+or **double quotes**. For example, the `htmlentities` function won't encode the characters of the following XSS 
 payload:
 
 ```
@@ -145,7 +145,7 @@ in the previously described situation:
 <div data-custom-attribute-value=1 onmouseover&equals;alert&lpar;1&rpar;></div>
 ```
 
-Regardless of the flag you set, always enclose HTML attributes in single or double quotes. 
+Regardless of the flag you set, **always** enclose HTML attributes in **single quotes** or **double quotes**. 
 
 With the third parameter of the htmlentities function, the target character set is specified. The value of 
 this parameter should be equal to the character set defined in the target HTML document (e.g. UTF-8). 
@@ -153,7 +153,7 @@ this parameter should be equal to the character set defined in the target HTML d
 Finally, the fourth parameter prevents double escaping if set to true.
 
 ###### Context: User-provided URLs
-User-provided URLs should not beginn with the JavaScript pseudo protocol (`javascript`). This can be prevented by accepting only URLs that beginn with the HTTP (`http`) or HTTPS (`https`) protocol.
+User-provided URLs should not beginn with the JavaScript pseudo protocol (`javascript:`) or a data URI scheme (`data:`). This can be prevented by accepting only URLs that beginn with the HTTP (`http`) or HTTPS (`https`) protocol.
 
 ```php
 if(substr($url, 0, strlen("http")) === "http" ||
