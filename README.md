@@ -91,7 +91,7 @@ Be also aware that the SameSite cookie attribute won't prevent request forgery a
 # Cross-Site Scripting
 > Server-side countermeasures will not be enough to prevent XSS attacks as certain types of XSS, such as DOM-based XSS, 
 > are the results of flaws in the client-side code. In case of DOM-based XSS, I recommend to use [DOMPurify](https://github.com/cure53/DOMPurify) and 
-> to take a look at the [DOM-based XSS Prevention Cheatsheet](https://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet). Furthermore, you should also follow the development of [Trusted Types for DOM Manipulation](https://github.com/WICG/trusted-types) - See [
+> to take a look at the [DOM-based XSS Prevention Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html). Furthermore, you should also follow the development of [Trusted Types for DOM Manipulation](https://github.com/WICG/trusted-types) - See [
 Trusted Types help prevent Cross-Site Scripting](https://developers.google.com/web/updates/2019/02/trusted-types) for a recent article on that topic.
 
 ### Automatic Context-Aware Escaping
