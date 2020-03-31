@@ -147,17 +147,16 @@ in the previously described situation:
 
 Regardless of the flag you set, **always** enclose HTML attributes in **single quotes** or **double quotes**. 
 
-With the third parameter of the htmlentities function, the target character set is specified. The value of 
+With the third parameter of the `htmlentities` function, the target character set is specified. The value of 
 this parameter should be equal to the character set defined in the target HTML document (e.g. UTF-8). 
 
 Finally, the fourth parameter prevents double escaping if set to true.
 
 ###### Context: User-provided URLs
-User-provided URLs should not beginn with the JavaScript pseudo protocol (`javascript:`) or a data URI scheme (`data:`). This can be prevented by accepting only URLs that beginn with the HTTP (`http`) or HTTPS (`https`) protocol.
+User-provided URLs should not beginn with the JavaScript (`javascript:`) or a data (`data:`) URI scheme. This can be prevented by accepting only URLs that beginn with the HTTPS (`https`) protocol.
 
 ```php
-if(substr($url, 0, strlen("http")) === "http" ||
-   substr($url, 0, strlen("https")) === "https"){
+if(substr($url, 0, strlen("https")) === "https"){
    // Accept and process URL
 }
 ```
