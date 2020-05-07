@@ -21,8 +21,8 @@ In case you are keen on learning more about PHP security, you can check out the 
 - [Information Disclosure](#information-disclosure)
 - [Insecure Password Storage and Hashing](#insecure-password-storage-and-hashing)
 - [Insecure Random Values](#insecure-random-values)
-- [Template Injection](#template-injection)
 - [SQL Injection](#sql-injection)
+- [Template Injection](#template-injection)
 - [UI Redressing](#ui-redressing)
 - [Using Packages With Known Vulnerabilities](#using-packages-with-known-vulnerabilities)
 
