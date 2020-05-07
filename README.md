@@ -352,7 +352,7 @@ int random_int ( int $min , int $max )
 This type of vulnerability affects applications that interact with a SQL database for data storage and processing. The vulnerability occurs when a SQL query is dynamically constructed with user-controlled input and the user-controlled input is neither sanitized nor escaped. The best practice to prevent SQL injection vulnerabilities is to process user-controlled input and the SQL query separately and this can be done by using prepared statements. The [PDO](https://www.php.net/manual/en/book.pdo.php) database abstraction layer in PHP enables prepared statements through the [prepare](https://www.php.net/manual/en/pdo.prepare.php) method of the [PDO](https://www.php.net/manual/en/class.pdo.php) class.
 
 ```php
-// Init and connect to database 
+// Init and connect to database / Instantiate a PDO object
 // ...
 
 // Read user credentials
