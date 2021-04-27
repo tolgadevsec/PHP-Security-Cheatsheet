@@ -1,6 +1,8 @@
 # PHP Security Cheatsheet
 This cheatsheet is an overview of some techniques, Proof-of-Concept (PoC) implementations of countermeasures against vulnerabilities that can occur within a PHP web application.  
 
+> All of the examples presented in this cheatsheet are for educational purposes and are not meant to be used in a production system. Most of the techniques and countermeasures are already built-in in many modern web application frameworks and should be taken advantage of.
+
 ## Articles, Tutorials, Guides and Cheatsheets
 In case you are keen on learning more about PHP security, you can check out the following resources:
 - [The 2018 Guide to Building Secure PHP Software](https://paragonie.com/blog/2017/12/2018-guide-building-secure-php-software)
