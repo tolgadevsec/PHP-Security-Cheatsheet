@@ -28,6 +28,8 @@ In case you are keen on learning more about PHP security, you can check out the 
 - [Using Packages With Known Vulnerabilities](#using-packages-with-known-vulnerabilities)
 
 # Cross-Site Request Forgery
+Before going into any of the following countermeasures, it is important to know the concept of [safe](https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP) HTTP methods. A HTTP method is considered safe if it is not changing any state on the server-side of a web application or service. HTTP methods such as GET should therefore not be used to, for example, remove a resource. 
+
 ### Anti-CSRF Tokens
 You can use the [random_bytes](https://secure.php.net/manual/en/function.random-bytes.php) function to generate a cryptographically secure pseudo-random token. The following example describes a basic proof of concept in
 which a Anti-CSRF token is delivered to the client in a custom HTTP response header (`X-CSRF-Token`). The [bin2hex](https://secure.php.net/manual/en/function.bin2hex.php) function will be used in order to 
@@ -62,9 +64,6 @@ if($requestHeaders !== false &&
 }
 ```
 
-### Safe GET Requests
-A HTTP method is considered [safe](https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP) if it is not changing any state on the server-side of a web application or service. HTTP methods such as GET should therefore not be used to, for example, remove a resource.
-
 ### Enforce CORS Preflight with Custom Headers
 If a HTTP request contains a custom header, the Browser will send a [CORS preflight request](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#Preflighted_requests) before it continues to send the original request. If no CORS policy has been set on the server, requests coming from another origin will fail. 
 
@@ -78,7 +77,7 @@ if($requestHeaders !== false &&
 }
 ```
 
-This technique should not be the main line of defense against CSRF attacks as there have been vulnerabilities in the past that enabled the sending of cross-site requests containing arbitrary HTTP request headers ([CVE-2017-0140](https://www.securify.nl/advisory/SFY20170101/microsoft-edge-fetch-api-allows-setting-of-arbitrary-request-headers.html)). There is no guarantee that this cannot happen again in the future.
+> This technique should not be the main line of defense against CSRF attacks as there have been vulnerabilities in the past that enabled the sending of cross-site requests containing arbitrary HTTP request headers ([CVE-2017-0140](https://www.securify.nl/advisory/SFY20170101/microsoft-edge-fetch-api-allows-setting-of-arbitrary-request-headers.html)). There is no guarantee that this cannot happen again in the future.
 
 ### SameSite Cookie Attribute
 The support of the SameSite cookie attribute was introduced in [PHP 7.3](https://wiki.php.net/rfc/same-site-cookie).
