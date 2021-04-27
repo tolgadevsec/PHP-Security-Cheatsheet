@@ -28,7 +28,7 @@ In case you are keen on learning more about PHP security, you can check out the 
 - [Using Packages With Known Vulnerabilities](#using-packages-with-known-vulnerabilities)
 
 # Cross-Site Request Forgery
-Before going into any of the following countermeasures, it is important to know the concept of [safe](https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP) HTTP methods. A HTTP method is considered safe if it is not changing any state on the server-side of a web application or service. HTTP methods such as GET should therefore not be used to, for example, remove a resource. 
+> Before going into any of the following countermeasures, it is important to know the concept of [safe](https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP) HTTP methods. A HTTP method is considered safe if it is not changing any state on the server-side of a web application or service. HTTP methods such as GET should therefore not be used to, for example, remove a resource on the server-side. Otherwhise, this would make it possible, if no CSRF countermeasures are in place, to lure a victim to a attacker-controlled website which sends a HTTP GET request when the website is loaded - and removes a resource using the victim's session.
 
 ### Anti-CSRF Tokens
 You can use the [random_bytes](https://secure.php.net/manual/en/function.random-bytes.php) function to generate a cryptographically secure pseudo-random token. The following example describes a basic proof of concept in
