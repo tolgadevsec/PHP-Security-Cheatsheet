@@ -9,6 +9,7 @@ In case you are keen on learning more about PHP security, you can check out the 
 - [The ultimate PHP Security Checklist](https://www.sqreen.com/checklists/php-security-checklist)
 - [PHP Configuration Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/PHP_Configuration_Cheat_Sheet.html)
 - [Awesome PHP Security](https://github.com/guardrailsio/awesome-php-security)
+- [PHP RFC: Is Literal Check](https://github.com/craigfrancis/php-is-literal-rfc)
 
 ## Table of Vulnerabilities
 - [Cross-Site Request Forgery](#cross-site-request-forgery)
