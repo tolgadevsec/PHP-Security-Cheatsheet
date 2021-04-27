@@ -364,6 +364,8 @@ $statement = $pdo->prepare("SELECT * FROM Users WHERE Email = :eMail AND Passwor
 $statement->execute(["eMail" => $eMail, "passwordHash" => $passwordHash]);
 $user = $statement->fetch();
 ```
+> Note that the SQL query in the previous example is constructed as a string because that is what the PDO prepare method expects. This way of constructing SQL queries should rather be the exception as it is prone to developer mistakes who could accidentally embed user-controlled input into the string. Object-Relational Mapper (ORM) like [Doctrine](https://www.doctrine-project.org/) can make such mistakes less likely and provide more usable interfaces to construct queries in a object-oriented manner.
+
 
 # Template Injection
 This type of vulnerability occurs when the target template is built at runtime and parts of the template are controlled by the user. Template engines provide functions to safely embed user-controlled input into a template, make use of them. The following code snippet shows an example where user input is safely embed in a [Smarty](https://www.smarty.net/) template. 
