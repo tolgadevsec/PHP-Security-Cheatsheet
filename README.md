@@ -63,7 +63,7 @@ if($requestHeaders !== false &&
 ```
 
 ### Safe GET Requests
-A HTTP method is considered (safe)[https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP] if it is not changing any state on the server-side of a web application or service. 
+A HTTP method is considered [safe](https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP) if it is not changing any state on the server-side of a web application or service. HTTP methods such as GET should therefore not be used to, for example, remove a resource.
 
 ### Enforce CORS Preflight with Custom Headers
 If a HTTP request contains a custom header, the Browser will send a [CORS preflight request](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#Preflighted_requests) before it continues to send the original request. If no CORS policy has been set on the server, requests coming from another origin will fail. 
