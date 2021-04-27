@@ -8,7 +8,6 @@ In case you are keen on learning more about PHP security, you can check out the 
 - [The 2018 Guide to Building Secure PHP Software](https://paragonie.com/blog/2017/12/2018-guide-building-secure-php-software)
 - [PHP: The Right Way - Security](https://phptherightway.com/#security)
 - [Survive The Deep End: PHP Security](https://phpsecurity.readthedocs.io/en/latest/)
-- [The ultimate PHP Security Checklist](https://www.sqreen.com/checklists/php-security-checklist)
 - [PHP Configuration Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/PHP_Configuration_Cheat_Sheet.html)
 - [Awesome PHP Security](https://github.com/guardrailsio/awesome-php-security)
 - [PHP RFC: Is Literal Check](https://github.com/craigfrancis/php-is-literal-rfc)
