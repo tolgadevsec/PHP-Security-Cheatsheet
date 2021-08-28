@@ -337,14 +337,14 @@ if(password_verify($clearTextPassword, $passwordHash)){
 
 # Insecure Random Values
 ### Pseudo-Random Bytes
-The [random_bytes](https://secure.php.net/manual/en/function.random-bytes.php) functions generates an arbitrary length string of pseudo-random bytes which are secure for cryptographic use.
+The [random_bytes](https://secure.php.net/manual/en/function.random-bytes.php) function generates an arbitrary length string of pseudo-random bytes which are secure for cryptographic use.
 
 ```php
 string random_bytes ( int $length )
 ```
 
 ### Pseudo-Random Integers
-The [random_int](https://secure.php.net/manual/en/function.random-int.php) functions generates a pseudo-random integer which is secure for cryptographic use.
+The [random_int](https://secure.php.net/manual/en/function.random-int.php) function generates a pseudo-random integer which is secure for cryptographic use.
 
 ```php
 int random_int ( int $min , int $max )
