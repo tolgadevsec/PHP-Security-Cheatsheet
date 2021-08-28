@@ -233,9 +233,9 @@ session.cookie_httponly = true
 ``` 
 
 ### Content Security Policy
-Another effective defense against XSS attacks is to utilize a so called [Content Security Policy](https://developers.google.com/web/fundamentals/security/csp) (CSP). Essentially, a CSP is a whitelist of trusted sources from which a web application (the frontend part) is allowed to download and render/execute content. A CSP could therefore prevent the exfiltration of data (e.g. session ID) to a source that is not whitelisted. 
+Another effective defense against XSS attacks is to utilize a so called [Content Security Policy](https://developers.google.com/web/fundamentals/security/csp) (CSP). Essentially, a CSP is an acceptlist of trusted sources from which a web application (the frontend part) is allowed to download and render/execute content. A CSP could therefore prevent the exfiltration of data (e.g. session ID) to a source that is not in the acceptlist. 
 
-In cases where an attacker cannot exfiltrate data but execute code, a CSP can still be beneficial as it provides mechanisms to prevent the execution of inline JavaScript code (unless `unsafe-inline` is explicitly specified as a trusted source). This, however, presumes an application architecture in which aspects such as the application's behavior and its appearance are separated (e.g. all JavaScript code are contained in .js files, all style instructions are cointained in .css files). If that should not be the case, you might be able to [use nonces to whitelist inlined resources](https://barryvanveen.nl/blog/47-how-to-prevent-the-use-of-unsafe-inline-in-csp).
+In cases where an attacker cannot exfiltrate data but execute code, a CSP can still be beneficial as it provides mechanisms to prevent the execution of inline JavaScript code (unless `unsafe-inline` is explicitly specified as a trusted source). This, however, presumes an application architecture in which aspects such as the application's behavior and its appearance are separated (e.g. all JavaScript code are contained in .js files, all style instructions are cointained in .css files). If that should not be the case, you might be able to [use nonces to add inlined resources to the acceptlist](https://barryvanveen.nl/blog/47-how-to-prevent-the-use-of-unsafe-inline-in-csp).
 
 A CSP is delivered to a Browser as a HTTP response header as shown below:
 
@@ -253,13 +253,13 @@ While the CSP in the example above is short and simple, it is not unusual to hav
 > or by exploiting [common CSP mistakes](http://conference.hitb.org/hitbsecconf2016ams/materials/D1T2%20-%20Michele%20Spagnuolo%20and%20Lukas%20Weichselbaum%20-%20CSP%20Oddities.pdf) to name but a few examples. 
 
 # File Inclusion
-The user should not have the possibility to control parameters that include files from the local filesystem or from a remote host. If this behavior cannot be changed, apply parameter whitelisting such that only valid parameters are accepted. This will also prevent attackers from traversing through the local file system.
+The user should not have the possibility to control parameters that include files from the local filesystem or from a remote host. If this behavior cannot be changed, apply parameter acceptlisting such that only valid parameters are accepted. This will also prevent attackers from traversing through the local file system.
 
 ```php
-$parameterWhitelist = ["preview", "gallery"];
+$parameterAcceptlist = ["preview", "gallery"];
 // Activate type checking of the needle-parameter by setting 
 // the third parameter of the in_array function to true
-if(in_array($parameter, $parameterWhitelist, true)){
+if(in_array($parameter, $parameterAcceptlist, true)){
     include($parameter . ".php");
 }
 ```
@@ -268,13 +268,13 @@ if(in_array($parameter, $parameterWhitelist, true)){
 The [header](https://secure.php.net/manual/en/function.header.php) function prevents the injection of multiple headers since PHP 5.1.2 (see [Changelog](https://secure.php.net/manual/en/function.header.php) at the bottom).
 
 # HTTP Header Parameter Injection
-User-provided header parameters should be avoided if possible. If it can't be avoided, consider a whitelist approach to accept only specific values. The following sample shows how to prevent unvalidated redirection attacks with a whitelist of valid locations.
+User-provided header parameters should be avoided if possible. If it can't be avoided, consider an acceptlist approach to accept only specific values. The following sample shows how to prevent unvalidated redirection attacks with an acceptlist of valid locations.
 
 ```php
-$parameterWhitelist = ["ManagementPanel", "Dashboard"];
+$parameterAcceptlist = ["ManagementPanel", "Dashboard"];
 // Activate type checking of the needle-parameter by setting 
 // the third parameter of the in_array function to true
-if(in_array($parameter, $parameterWhitelist, true)){
+if(in_array($parameter, $parameterAcceptlist, true)){
     header("Location: /" . $parameter, true, 302);
     exit;
 }
