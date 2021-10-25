@@ -64,6 +64,10 @@ if($requestHeaders !== false &&
    if(hash_equals($serverToken, $clientToken)){
       // Move on with request processing
    }
+   else {
+      // Do not continue with request processing
+      exit;
+   }
 }
 else {
     // Do not continue with request processing
