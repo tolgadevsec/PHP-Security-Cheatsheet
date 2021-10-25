@@ -1,5 +1,5 @@
 # PHP Security Cheatsheet
-This cheatsheet is an overview of some techniques and code snippets of countermeasures against vulnerabilities that can occur within a PHP web application.  
+This cheatsheet is an overview of techniques to prevent common vulnerabilities within PHP web applications.  
 
 > All of the examples presented in this cheatsheet are for learning and experimentation purposes and are not meant to be used in a production system. Most of the techniques and countermeasures are already built-in in many modern web application frameworks and should be taken advantage of.
 
@@ -30,6 +30,8 @@ In case you are keen on learning more about PHP security, you can check out the 
 
 # Cross-Site Request Forgery
 > Before going into any of the following countermeasures, it is important to know the concept of [safe HTTP methods](https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP). A HTTP method is considered safe if it is not changing any state on the server-side of a web application or service. HTTP methods such as GET should therefore not be used to, e.g., remove a resource on the server-side. Otherwhise, this would make it possible, if no CSRF countermeasures are in place, to lure a victim to a attacker-controlled website which sends a HTTP GET request (e.g. `GET /delete/:id`) when the website is loaded - and removes a resource using the victim's session.
+
+> If a HTTP request contains a custom header, the Browser will send a [CORS preflight request](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#Preflighted_requests) before it continues to send the original request. If no CORS policy has been set on the server, requests coming from another origin will fail. You can enforce this situation by checking for the existence of a custom HTTP request header (e.g. `X-CSRF-Token`) in the list of headers returned by [apache_request_headers](https://secure.php.net/manual/en/function.apache-request-headers.php). However, being able to set arbitrary request headers might still be possible due to vulnerabilities such as ([CVE-2017-0140](https://www.securify.nl/advisory/SFY20170101/microsoft-edge-fetch-api-allows-setting-of-arbitrary-request-headers.html)).
 
 ### Anti-CSRF Tokens
 You can use the [random_bytes](https://secure.php.net/manual/en/function.random-bytes.php) function to generate a cryptographically secure pseudo-random token. The following example describes a basic proof of concept in
@@ -64,25 +66,10 @@ if($requestHeaders !== false &&
    }
 }
 else {
-    // Do not continue processing the request
+    // Do not continue with request processing
     exit;
 }
 ```
-
-### Enforce CORS Preflight with Custom Headers
-If a HTTP request contains a custom header, the Browser will send a [CORS preflight request](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#Preflighted_requests) before it continues to send the original request. If no CORS policy has been set on the server, requests coming from another origin will fail. 
-
-You can enforce this situation by checking for the existence of a custom HTTP request header in the list of headers returned by [apache_request_headers](https://secure.php.net/manual/en/function.apache-request-headers.php). 
-
-```php
-$requestHeaders = apache_request_headers();
-if($requestHeaders !== false && 
-   array_key_exists("X-Custom", $requestHeaders)){
-   // Move on with request processing   
-}
-```
-
-> This technique should not be the main line of defense against CSRF attacks as there have been vulnerabilities in the past that enabled the sending of cross-site requests containing arbitrary HTTP request headers ([CVE-2017-0140](https://www.securify.nl/advisory/SFY20170101/microsoft-edge-fetch-api-allows-setting-of-arbitrary-request-headers.html)). There is no guarantee that this cannot happen again in the future.
 
 ### SameSite Cookie Attribute
 The support of the SameSite cookie attribute was introduced in [PHP 7.3](https://wiki.php.net/rfc/same-site-cookie).
